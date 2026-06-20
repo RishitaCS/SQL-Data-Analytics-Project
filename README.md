@@ -1,350 +1,43 @@
-# SQL-Data-Analytics-Project
+# SQL Data Analytics Project
 
 ## Overview
 
-This project demonstrates an end-to-end SQL-based Data Analytics workflow using a Data Warehouse model. The project focuses on data exploration, business analysis, and generating actionable insights from sales, customer, and product datasets.
+This project demonstrates how SQL can be used to perform **Exploratory Data Analysis (EDA)** and generate actionable business insights from a sales data warehouse.
 
-The database is built using Microsoft SQL Server and follows a dimensional modeling approach with:
-
-* **Dimension Tables**
-
-  * `dim_customers`
-  * `dim_products`
-
-* **Fact Table**
-
-  * `fact_sales`
-
-The project covers data loading, exploratory data analysis (EDA), aggregation, ranking analysis, and business performance reporting using SQL queries.
+Using Microsoft SQL Server, I analyzed customer behavior, product performance, sales trends, and business KPIs through a collection of analytical SQL queries and reporting views.
 
 ---
 
 ## Project Objectives
 
-The main objectives of this project are:
-
-* Build a structured Data Warehouse database.
-* Load data from CSV files into SQL Server tables.
-* Explore and understand the dataset structure.
-* Analyze customers, products, and sales performance.
-* Generate key business metrics.
-* Perform ranking and magnitude analysis.
-* Demonstrate practical SQL skills used in Data Analytics.
+- Explore and understand the dataset
+- Generate business KPIs
+- Analyze customer and product performance
+- Identify sales trends over time
+- Perform customer and product segmentation
+- Build reusable analytical reports
+- Practice advanced SQL techniques for business analytics
 
 ---
 
 ## Database Schema
 
-### Database
+The project uses a simple **Star Schema**.
 
-`DataWarehouseAnalytics`
+### Fact Table
 
-### Tables
+- `fact_sales`
 
-#### 1. dim_customers
+### Dimension Tables
 
-Stores customer information.
-
-| Column          | Description           |
-| --------------- | --------------------- |
-| customer_key    | Surrogate key         |
-| customer_id     | Customer ID           |
-| customer_number | Customer Number       |
-| first_name      | First Name            |
-| last_name       | Last Name             |
-| country         | Country               |
-| marital_status  | Marital Status        |
-| gender          | Gender                |
-| birthdate       | Birth Date            |
-| create_date     | Account Creation Date |
-
----
-
-#### 2. dim_products
-
-Stores product information.
-
-| Column         | Description         |
-| -------------- | ------------------- |
-| product_key    | Surrogate key       |
-| product_id     | Product ID          |
-| product_number | Product Number      |
-| product_name   | Product Name        |
-| category_id    | Category ID         |
-| category       | Product Category    |
-| subcategory    | Product Subcategory |
-| maintenance    | Maintenance Type    |
-| cost           | Product Cost        |
-| product_line   | Product Line        |
-| start_date     | Product Start Date  |
-
----
-
-#### 3. fact_sales
-
-Stores transactional sales data.
-
-| Column        | Description   |
-| ------------- | ------------- |
-| order_number  | Order Number  |
-| product_key   | Product Key   |
-| customer_key  | Customer Key  |
-| order_date    | Order Date    |
-| shipping_date | Shipping Date |
-| due_date      | Due Date      |
-| sales_amount  | Sales Revenue |
-| quantity      | Quantity Sold |
-| price         | Unit Price    |
-
----
-
-## Data Loading Process
-
-The project uses SQL Server's `BULK INSERT` command to import data from CSV files.
-
-### Process
-
-1. Create database.
-2. Create schema.
-3. Create dimension and fact tables.
-4. Truncate existing data.
-5. Load fresh data using BULK INSERT.
-
----
-
-## Exploratory Data Analysis (EDA)
-
-### Database Exploration
-
-Performed metadata analysis using:
-
-```sql
-INFORMATION_SCHEMA.TABLES
-INFORMATION_SCHEMA.COLUMNS
-```
-
-Used to:
-
-* View all database objects
-* Inspect table structures
-* Validate column definitions
-
----
-
-### Dimensions Exploration
-
-Analyzed:
-
-#### Customer Countries
-
-```sql
-SELECT DISTINCT country
-FROM gold.dim_customers;
-```
-
-#### Product Categories
-
-```sql
-SELECT DISTINCT category, subcategory, product_name
-FROM gold.dim_products;
-```
-
-Insights:
-
-* Understand customer distribution by country.
-* Explore product hierarchy.
-
----
-
-### Date Range Analysis
-
-Determined:
-
-* First order date
-* Last order date
-* Historical sales coverage
-* Youngest customer
-* Oldest customer
-
-Functions used:
-
-```sql
-MIN()
-MAX()
-DATEDIFF()
-```
-
----
-
-### Measures Analysis
-
-Generated key business metrics:
-
-| Metric                |
-| --------------------- |
-| Total Sales           |
-| Total Quantity Sold   |
-| Average Selling Price |
-| Total Orders          |
-| Total Products        |
-| Total Customers       |
-
-Functions used:
-
-```sql
-SUM()
-AVG()
-COUNT()
-COUNT(DISTINCT)
-```
-
----
-
-## Magnitude Analysis
-
-Analyzed data distributions across business dimensions.
-
-### Customer Analysis
-
-* Customers by Country
-* Customers by Gender
-
-### Product Analysis
-
-* Products by Category
-* Average Product Cost by Category
-
-### Revenue Analysis
-
-* Revenue by Category
-* Revenue by Customer
-
-### Sales Distribution
-
-* Quantity Sold by Country
-
-Functions used:
-
-```sql
-GROUP BY
-SUM()
-COUNT()
-AVG()
-ORDER BY
-```
-
----
-
-## Ranking Analysis
-
-Identified top and bottom performers.
-
-### Top Revenue Generating Products
-
-Top 5 products by sales revenue.
-
-### Lowest Revenue Products
-
-Bottom 5 products by sales revenue.
-
-### Top Customers
-
-Top 10 customers generating highest revenue.
-
-### Customers with Fewest Orders
-
-Bottom 3 customers based on order count.
-
-Functions used:
-
-```sql
-TOP
-RANK()
-ROW_NUMBER()
-DENSE_RANK()
-```
-
----
-
-## SQL Concepts Demonstrated
-
-### Data Definition Language (DDL)
-
-* CREATE DATABASE
-* CREATE SCHEMA
-* CREATE TABLE
-* DROP DATABASE
-
-### Data Loading
-
-* BULK INSERT
-* TRUNCATE TABLE
-
-### Data Exploration
-
-* INFORMATION_SCHEMA
-
-### Aggregations
-
-* SUM()
-* COUNT()
-* AVG()
-* MIN()
-* MAX()
-
-### Date Functions
-
-* DATEDIFF()
-* GETDATE()
-
-### Joins
-
-* LEFT JOIN
-
-### Ranking Functions
-
-* RANK()
-* ROW_NUMBER()
-* DENSE_RANK()
-
-### Reporting
-
-* UNION ALL
-* GROUP BY
-* ORDER BY
-
----
-
-## Key Business Questions Answered
-
-### Customers
-
-* How many customers exist?
-* Which countries have the most customers?
-* What is the gender distribution?
-
-### Products
-
-* Which categories contain the most products?
-* What is the average cost by category?
-
-### Sales
-
-* What are the total sales?
-* How many products were sold?
-* What is the average selling price?
-
-### Performance
-
-* Which products generate the highest revenue?
-* Which customers contribute the most revenue?
-* Which products perform poorly?
-
+- `dim_customers`
+- `dim_products`
+  
 ---
 
 ## Project Structure
 
-```text
+```
 SQL-Data-Analytics-Project/
 │
 ├── datasets/
@@ -352,41 +45,233 @@ SQL-Data-Analytics-Project/
 │   └── DataWarehouseAnalytics.bak
 │
 ├── scripts/
-│   ├── 00_init_database.sql
-│   ├── 01_database_exploration.sql
-│   ├── 02_dimensions_exploration.sql
-│   ├── 03_date_range_exploration.sql
-│   ├── 04_measures_exploration.sql
-│   ├── 05_magnitude_analysis.sql
-│   ├── 06_ranking_analysis.sql
+│   ├── database_setup.sql
+│   ├── database_exploration.sql
+│   ├── dimensions_exploration.sql
+│   ├── date_range_analysis.sql
+│   ├── measures_analysis.sql
+│   ├── magnitude_analysis.sql
+│   ├── ranking_analysis.sql
+│   ├── change_over_time_analysis.sql
+│   ├── cumulative_analysis.sql
+│   ├── performance_analysis.sql
+│   ├── segmentation_analysis.sql
+│   ├── part_to_whole_analysis.sql
+│   ├── customer_report.sql
+│   └── product_report.sql
 │
 └── README.md
 ```
 
 ---
 
+## Analysis Performed
+
+### Database Exploration
+
+- Explored tables and metadata
+- Validated table structures
+- Inspected column information
+
+### Dimension Exploration
+
+- Customer distribution by country
+- Product categories and subcategories
+
+### Date Range Analysis
+
+- First and last order dates
+- Historical sales coverage
+- Youngest and oldest customers
+
+### Business KPIs
+
+Calculated key metrics including:
+
+- Total Sales
+- Total Orders
+- Total Customers
+- Total Products
+- Total Quantity Sold
+- Average Selling Price
+
+### Magnitude Analysis
+
+Analyzed:
+
+- Revenue by category
+- Revenue by customer
+- Products by category
+- Customer distribution by country
+- Average product cost
+
+### Ranking Analysis
+
+Identified:
+
+- Top 5 revenue-generating products
+- Bottom 5 products
+- Top customers
+- Customers with the fewest orders
+
+### Change Over Time Analysis
+
+Analyzed monthly and yearly trends using:
+
+- `YEAR()`
+- `MONTH()`
+- `DATETRUNC()`
+- `FORMAT()`
+
+Metrics included:
+
+- Monthly Sales
+- Monthly Customers
+- Monthly Quantity Sold
+
+### Cumulative Analysis
+
+Calculated:
+
+- Running Total Sales
+- Moving Average Price
+
+Using SQL window functions.
+
+### Performance Analysis
+
+Compared yearly product performance using:
+
+- Year-over-Year (YoY) Growth
+- Previous Year Sales
+- Average Product Sales
+- Growth Classification
+
+### Data Segmentation
+
+Created business segments for:
+
+**Customers**
+
+- VIP
+- Regular
+- New
+
+**Products**
+
+- Below 100
+- 100–500
+- 500–1000
+- Above 1000
+
+### Part-to-Whole Analysis
+
+Measured each product category's contribution to overall sales using percentage-of-total calculations.
+
+---
+
+## Business Reports
+
+### Customer Report
+
+Created a reusable customer report containing:
+
+- Customer Profile
+- Age Group
+- Customer Segment
+- Total Orders
+- Total Sales
+- Total Quantity Purchased
+- Products Purchased
+- Customer Lifespan
+- Recency
+- Average Order Value
+- Average Monthly Spend
+
+### Product Report
+
+Created a reusable product report including:
+
+- Product Information
+- Product Segment
+- Total Orders
+- Total Sales
+- Quantity Sold
+- Unique Customers
+- Average Selling Price
+- Average Order Revenue
+- Average Monthly Revenue
+- Product Recency
+
+---
+
+## SQL Concepts Used
+
+### Aggregation
+
+- SUM()
+- AVG()
+- MIN()
+- MAX()
+- COUNT()
+
+### Window Functions
+
+- ROW_NUMBER()
+- RANK()
+- LAG()
+- SUM() OVER()
+- AVG() OVER()
+
+### Date Functions
+
+- YEAR()
+- MONTH()
+- DATEDIFF()
+- DATETRUNC()
+- FORMAT()
+
+### Other SQL Features
+
+- Common Table Expressions (CTEs)
+- CASE Statements
+- LEFT JOIN
+- GROUP BY
+- ORDER BY
+- UNION ALL
+- Views
+
+---
+
 ## Technologies Used
 
-* Microsoft SQL Server
-* T-SQL
-* SQL Server Management Studio (SSMS)
-* CSV Files
+- Microsoft SQL Server
+- SQL Server Management Studio (SSMS)
+- T-SQL
+- CSV Files
 
 ---
 
-## Learning Outcomes
+## Key Learning Outcomes
 
-Through this project, I gained hands-on experience in:
+Through this project I gained hands-on experience in:
 
-* Data Warehouse Design
-* Dimensional Modeling
-* SQL Data Loading Techniques
-* Exploratory Data Analysis (EDA)
-* Business Metrics Reporting
-* Customer Analytics
-* Product Analytics
-* Sales Analytics
-* SQL Window Functions
-* Query Optimization Concepts
+- SQL Data Analysis
+- Exploratory Data Analysis (EDA)
+- Business KPI Reporting
+- Time Series Analysis
+- Customer Analytics
+- Product Analytics
+- Window Functions
+- Analytical SQL Query Design
+- Report Development using SQL Views
 
 ---
+
+## Future Improvements
+
+- Build an interactive Power BI dashboard
+- Automate report generation
+- Add advanced customer cohort analysis
+- Implement RFM analysis
+- Perform forecasting using SQL/Python
